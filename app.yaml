@@ -1,0 +1,27 @@
+﻿deploy:
+  count: 1
+app:
+  name: XXXXXXXXXXXXX
+  iam-role: XXXXXXXXX
+  container:
+    braveheart:
+      enable-logs: True
+      memory:
+        limit: 512M
+        request: 256M
+      cpu:
+        limit: 0.5
+        request: 0.2
+      ports:
+        - port: 3000
+          protocol: tcp
+      image: 'ecr:instant-designer-mock-service@sha256:XXXXXXXXXXXXX'
+      health-checks:
+        - port: 3000
+          type: http
+          path: /v1/healthcheck
+          interval: 5s
+          timeout: 15s
+      environment:
+        - name: "DB_URL"
+          value: "need-to-be-configured"
